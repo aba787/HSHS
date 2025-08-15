@@ -1,16 +1,295 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شركة التسويق</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* خطوط أساسية */
+    /* قسم الخدمات */
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #1c1c2c;
+        color: #fff;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      header {
+        background: linear-gradient(90deg, #bfa833, #7d3fbf);
+        padding: 20px 0;
+      }
+
+      header .container {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h1 {
+        font-size: 28px;
+        font-weight: 600;
+      }
+
+      header nav a {
+        color: #fff;
+        margin-left: 20px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      header nav a:hover {
+        color: #ffd700;
+      }
+
+      .hero {
+        background: linear-gradient(90deg, #7d3fbf, #bfa833);
+        padding: 100px 20px;
+        text-align: center;
+      }
+
+      .hero h2 {
+        font-size: 42px;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .hero p {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        background: #ffd700;
+        color: #1c1c2c;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #fff;
+        color: #7d3fbf;
+      }
+
+      .services {
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .services h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #ffd700;
+        text-shadow: 1px 1px 5px #7d3fbf;
+      }
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+      }
+
+      .card {
+        background: linear-gradient(145deg, #2c2c3c, #3d3d5c);
+        padding: 30px;
+        border-radius: 20px;
+        width: 300px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 25px rgba(255, 215, 0, 0.4);
+      }
+
+      .card h3 {
+        color: #ffd700;
+        margin-bottom: 15px;
+      }
+
+      .card p {
+        color: #ddd;
+        font-size: 16px;
+      }
+
+      .our-clients {
+        background: #1c1c2c;
+        padding: 50px 20px;
+        text-align: center;
+      }
+
+      .our-clients h2 {
+        color: #ffd700;
+        margin-bottom: 30px;
+        font-size: 32px;
+        text-shadow: 1px 1px 3px #7d3fbf;
+      }
+
+      .client-slider {
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+        padding-bottom: 10px;
+      }
+
+      .client-slider::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .client-slider::-webkit-scrollbar-thumb {
+        background: #ffd700;
+        border-radius: 4px;
+      }
+
+      .client-logos {
+        display: inline-flex;
+        gap: 30px;
+      }
+
+      .client-logos img {
+        width: 120px;
+        height: auto;
+        border-radius: 10px;
+        filter: grayscale(80%);
+        transition: filter 0.3s, transform 0.3s;
+      }
+
+      .client-logos img:hover {
+        filter: grayscale(0%);
+        transform: scale(1.1);
+      }
+
+      .request-form {
+        background: #2c2c3c;
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 20px;
+        margin-top: 50px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      }
+
+      .request-form h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+        color: #ffd700;
+        text-shadow: 1px 1px 3px #7d3fbf;
+      }
+
+      .request-form form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: auto;
+      }
+
+      .request-form input,
+      .request-form button {
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+      }
+
+      .request-form input {
+        background: #fff;
+        color: #1c1c2c;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+      }
+
+      .request-form button {
+        background: #ffd700;
+        color: #1c1c2c;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .request-form button:hover {
+        background: #fff;
+        color: #7d3fbf;
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+      }
+  </style>
 </head>
-
 <body>
-  Hello world
-  <script src="script.js"></script>
-</body>
+  <header>
+    <div class="container">
+      <h1>شركة HS</h1>
+      <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="register-agent.html">سجّل كمندوب</a>
+      </nav>
+    </div>
+  </header>
 
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h2>أفضل خدمات التسويق الرقمي</h2>
+        <p>ارتقِ بأعمالك مع حملاتنا الاحترافية وإستراتيجياتنا الذكية.</p>
+        <a href="#serviceForm" class="btn">اطلب الخدمة الآن</a>
+      </div>
+    </section>
+
+    <section class="services">
+      <h2>خدماتنا</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>تسويق المنتجات</h3>
+          <p>نساعدك على الوصول لأكبر شريحة من العملاء وزيادة المبيعات.</p>
+        </div>
+        <div class="card">
+          <h3>إدارة الحملات الإعلانية</h3>
+          <p>إعلانات دقيقة وموجّهة تحقق أفضل النتائج لأعمالك.</p>
+        </div>
+        <div class="card">
+          <h3>تحليل السوق</h3>
+          <p>نقدّم لك تقارير وتحليلات تساعدك على اتخاذ القرار الصحيح.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="our-clients">
+  <h2>عملاؤنا</h2>
+  <div class="client-slider">
+    <div class="client-logos">
+      <img src="client1.png" alt="عميل 1">
+      <img src="client2.png" alt="عميل 2">
+      <img src="client3.png" alt="عميل 3">
+      <img src="client4.png" alt="عميل 4">
+      <img src="client5.png" alt="عميل 5">
+      <img src="client6.png" alt="عميل 6">
+    </div>
+  </div>
+</section>
+
+    <section class="request-form" id="serviceForm">
+      <h2>طلب خدمة</h2>
+      <form id="serviceFormElement">
+        <input type="text" id="name" placeholder="الاسم" required>
+        <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+        <input type="text" id="service" placeholder="الخدمة المطلوبة" required>
+        <button type="submit">إرسال الطلب</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 شركة التسويق. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
 </html>
