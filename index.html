@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>شركة التسويق</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     /* خطوط أساسية */
     /* قسم الخدمات */
@@ -33,53 +34,113 @@
         align-items: center;
       }
 
-      header h1 {
-        font-size: 28px;
-        font-weight: 600;
-      }
+    header h1 {
+      font-family: 'Tajawal', sans-serif; /* خط عربي أنيق */
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #ffd700, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    }
 
-      header nav a {
-        color: #fff;
-        margin-left: 20px;
-        font-weight: 500;
-        transition: 0.3s;
-      }
+    header nav a {
+      font-family: 'Tajawal', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1c1c2c;
+      background: #ffd700;
+      padding: 10px 20px;
+      margin-left: 10px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
 
-      header nav a:hover {
-        color: #ffd700;
-      }
+    header nav a:hover {
+      background: #fff;
+      color: #7d3fbf;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+      transform: translateY(-2px);
+    }
 
-      .hero {
-        background: linear-gradient(90deg, #7d3fbf, #bfa833);
-        padding: 100px 20px;
-        text-align: center;
-      }
+    .hero {
+      background: linear-gradient(135deg, #7d3fbf, #bfa833);
+      padding: 100px 20px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
 
-      .hero h2 {
-        font-size: 42px;
-        margin-bottom: 20px;
-        font-weight: 600;
-      }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+    }
 
-      .hero p {
-        font-size: 20px;
-        margin-bottom: 30px;
-      }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: auto;
+    }
 
-      .btn {
-        background: #ffd700;
-        color: #1c1c2c;
-        padding: 15px 30px;
-        border-radius: 50px;
-        font-weight: 600;
-        transition: 0.3s;
-      }
+    .hero h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
 
-      .btn:hover {
-        background: #fff;
-        color: #7d3fbf;
-      }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 40px;
+      color: #f0f0f0;
+    }
 
+    .hero .btn {
+      background: #ffd700;
+      color: #1c1c2c;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .hero .btn:hover {
+      background: #fff;
+      color: #7d3fbf;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #ffd700, #ffcc33);
+      color: #1c1c2c;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+       font-family: 'Tajawal', sans-serif; /* خط عربي أنيق */
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #ffcc33, #ffd700);
+      color: #7d3fbf;
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.6);
+      transform: translateY(-3px);
+    }
+
+    
       .services {
         padding: 60px 20px;
         text-align: center;
@@ -291,5 +352,13 @@
   </footer>
 
   <script type="module" src="script.js"></script>
+  <!-- ربط مكتبة EmailJS -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function(){
+        emailjs.init("YOUR_USER_ID"); // حطي User ID من لوحة EmailJS
+    })();
+  </script>
+
 </body>
 </html>
