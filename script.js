@@ -1,5 +1,5 @@
 // Auto scroll effect
-const slider = document.getElementById("clientSlider");
+const slider = document.querySelector(".client-slider");
 let scrollAmount = 0;
 
 function autoScroll() {
