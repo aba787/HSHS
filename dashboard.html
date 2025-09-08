@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لوحة مندوبي المبيعات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1020; --card:#17182b; --muted:#9aa0a6;
+      --gold:#ffd700; --violet:#7d3fbf; --white:#fff; --ok:#1dbf73; --bad:#ff5a5f;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--white)}
+    header{background:linear-gradient(90deg,var(--gold),var(--violet));padding:18px}
+    header .wrap{max-width:1200px;margin:auto;display:flex;gap:16px;align-items:center;justify-content:space-between}
+    header h1{margin:0;font-size:26px;font-weight:800;-webkit-text-fill-color:#000000cc}
+    .container{max-width:1200px;margin:24px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{background:var(--card);border-radius:16px;padding:16px}
+    .kpi{display:flex;align-items:center;justify-content:space-between}
+    .kpi h3{margin:0 0 6px 0;font-size:14px;color:var(--muted)}
+    .kpi .v{font-size:28px;font-weight:800}
+    .chip{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;background:#ffffff14;color:var(--white)}
+    .filters label{font-size:12px;color:var(--muted)}
+    .filters select,.filters input{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2c44;background:#0b0c1a;color:var(--white)}
+    .btn{background:var(--gold);color:#111;padding:10px 16px;border:none;border-radius:10px;cursor:pointer;font-weight:800}
+    .btn.secondary{background:#ffffff10;color:#fff;border:1px solid #ffffff22}
+    .btn.danger{background:var(--bad);color:#fff}
+    table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    thead th{font-size:12px;color:var(--muted);text-align:right}
+    tbody tr{background:#13142a}
+    tbody td{padding:12px 10px;border-top:1px solid #232443;border-bottom:1px solid #232443}
+    tbody tr td:first-child{border-radius:10px 0 0 10px}
+    tbody tr td:last-child{border-radius:0 10px 10px 0}
+    .status{padding:4px 10px;border-radius:999px;font-size:12px}
+    .status.pending{background:#ffc10722;color:#ffc107}
+    .status.approved{background:#1dbf7330;color:#1dbf73}
+    .status.rejected{background:#ff5a5f22;color:#ff5a5f}
+    .flex{display:flex;gap:8px;flex-wrap:wrap}
+    .sticky{position:sticky;top:0;z-index:5}
+    canvas{width:100%!important;height:300px!important}
+    @media(max-width:900px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header class="sticky">
+    <div class="wrap">
+      <h1>لوحة مندوبي المبيعات</h1>
+      <div class="flex">
+        <button id="runAi" class="btn">تشغيل القبول الذكي</button>
+        <button id="exportCsv" class="btn secondary">تصدير CSV</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container grid">
+    <!-- KPIs -->
+    <div class="card kpi" style="grid-column: span 3;">
+      <div>
+        <h3>عدد المندوبين</h3>
+        <div id="kpiAgents" class="v">0</div>
+      </div><span class="chip">نشط/إجمالي</span>
+    </div>
+    <div class="card kpi" style="grid-column: span 3;">
+      <div>
+        <h3>طلبات اليوم</h3>
+        <div id="kpiLeads" class="v">0</div>
+      </div><span class="chip">Lead اليوم</span>
+    </div>
+    <div class="card kpi" style="grid-column: span 3;">
+      <div>
+        <h3>نسبة التحويل</h3>
+        <div id="kpiConv" class="v">0%</div>
+      </div><span class="chip">آخر 7 أيام</span>
+    </div>
+    <div class="card kpi" style="grid-column: span 3;">
+      <div>
+        <h3>Top مندوب</h3>
+        <div id="kpiTop" class="v">—</div>
+      </div><span class="chip">حسب المبيعات</span>
+    </div>
+
+    <!-- فلاتر -->
+    <div class="card filters" style="grid-column: span 12;">
+      <div class="flex" style="gap:12px">
+        <div style="flex:1">
+          <label>الدولة</label>
+          <input id="fCountry" placeholder="مثال: السعودية">
+        </div>
+        <div style="flex:1">
+          <label>الحد الأدنى للعمر</label>
+          <input id="fAgeMin" type="number" min="0" placeholder="مثال: 18">
+        </div>
+        <div style="flex:1">
+          <label>الحد الأدنى للخبرة (سنوات)</label>
+          <input id="fExpMin" type="number" min="0" placeholder="مثال: 1">
+        </div>
+        <div style="flex:1">
+          <label>الحالة</label>
+          <select id="fStatus">
+            <option value="">الكل</option>
+            <option value="pending">قيد المراجعة</option>
+            <option value="approved">مقبول</option>
+            <option value="rejected">مرفوض</option>
+          </select>
+        </div>
+        <div class="flex" style="align-items:flex-end">
+          <button id="applyFilters" class="btn">تطبيق الفلاتر</button>
+          <button id="clearFilters" class="btn secondary">إزالة</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- جدول المندوبين -->
+    <div class="card" style="grid-column: span 12;">
+      <table>
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>العمر</th>
+            <th>الدولة</th>
+            <th>خبرة (س)</th>
+            <th>عملاء جدد</th>
+            <th>مبيعات</th>
+            <th>تحويل %</th>
+            <th>الحالة</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="agentsTbody"></tbody>
+      </table>
+    </div>
+
+    <!-- رسم تحليلي -->
+    <div class="card" style="grid-column: span 12;">
+      <h3 style="margin-top:0;color:var(--muted)">مبيعات آخر 30 يوم</h3>
+      <canvas id="salesChart"></canvas>
+    </div>
+  </div>
+
+  <!-- مكتبات -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Firebase (ESM) -->
+  <script type="module" src="./dashboard.js"></script>
+</body>
+</html>

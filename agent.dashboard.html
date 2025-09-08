@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة المندوب</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background: #121223;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 25px;
+      background: #1f1f35;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffd700;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 4px #7d3fbf;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .info p {
+      flex: 1 1 45%;
+      background: #2a2a50;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 25px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      flex: 1 1 30%;
+      background: #7d3fbf;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-box h3 {
+      margin: 0;
+      font-size: 26px;
+      color: #fff;
+    }
+
+    .stat-box p {
+      margin: 8px 0 0;
+      font-weight: 600;
+    }
+
+    .add-sale {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .add-sale input {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      width: 160px;
+      font-size: 16px;
+    }
+
+    .add-sale button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      background: #ffd700;
+      color: #121223;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .add-sale button:hover {
+      background: #9c4dff;
+      color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #444;
+    }
+
+    table th {
+      background: #7d3fbf;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .telegram-btn {
+      display: block;
+      margin: 0 auto;
+      padding: 15px 35px;
+      background: #ffd700;
+      color: #121223;
+      font-weight: 700;
+      border-radius: 50px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .telegram-btn:hover {
+      background: #9c4dff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>مرحبا بك، <span id="agentName"></span></h2>
+
+    <div class="info">
+      <p><strong>البريد:</strong> <span id="agentEmail"></span></p>
+      <p><strong>الهاتف:</strong> <span id="agentPhone"></span></p>
+      <p><strong>الدولة:</strong> <span id="agentCountry"></span></p>
+      <p><strong>العمر:</strong> <span id="agentAge"></span></p>
+    </div>
+
+    <h2>إحصائياتك</h2>
+    <div class="stats">
+      <div class="stat-box">
+        <h3 id="clientsCount">0</h3>
+        <p>عدد العملاء</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="ordersCount">0</h3>
+        <p>عدد الطلبات</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="earnings">0</h3>
+        <p>الأرباح</p>
+      </div>
+    </div>
+
+    <div class="add-sale">
+      <input type="text" id="clientName" placeholder="اسم العميل">
+      <input type="number" id="saleAmount" placeholder="مبلغ البيع">
+      <button id="addSaleBtn">إضافة البيع</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>العميل</th>
+          <th>المبلغ</th>
+        </tr>
+      </thead>
+      <tbody id="salesTableBody">
+      </tbody>
+    </table>
+
+    <a href="https://t.me/YourTelegramLink" target="_blank" class="telegram-btn">ابدا الان</a>
+  </div>
+
+  <script>
+    const agentData = JSON.parse(localStorage.getItem("agentData")) || {};
+    const salesData = JSON.parse(localStorage.getItem("salesData")) || [];
+
+    // عرض بيانات المندوب
+    if(agentData){
+      document.getElementById("agentName").innerText = agentData.fullname;
+      document.getElementById("agentEmail").innerText = agentData.email;
+      document.getElementById("agentPhone").innerText = agentData.phone;
+      document.getElementById("agentCountry").innerText = agentData.country;
+      document.getElementById("agentAge").innerText = agentData.age;
+    }
+
+    function updateStats() {
+      const clients = [...new Set(salesData.map(s => s.client))];
+      document.getElementById("clientsCount").innerText = clients.length;
+      document.getElementById("ordersCount").innerText = salesData.length;
+      document.getElementById("earnings").innerText = salesData.reduce((acc, s) => acc + Number(s.amount), 0);
+
+      // تحديث الجدول
+      const tableBody = document.getElementById("salesTableBody");
+      tableBody.innerHTML = '';
+      salesData.forEach(sale => {
+        const row = `<tr><td>${sale.client}</td><td>${sale.amount}</td></tr>`;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    document.getElementById("addSaleBtn").addEventListener("click", () => {
+      const client = document.getElementById("clientName").value.trim();
+      const amount = document.getElementById("saleAmount").value;
+      if(client && amount){
+        salesData.push({ client, amount });
+        localStorage.setItem("salesData", JSON.stringify(salesData));
+        document.getElementById("clientName").value = '';
+        document.getElementById("saleAmount").value = '';
+        updateStats();
+      } else {
+        alert("رجاءً أدخل اسم العميل ومبلغ البيع");
+      }
+    });
+
+    updateStats();
+  </script>
+</body>
+</html>
