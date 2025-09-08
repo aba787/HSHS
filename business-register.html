@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل شركة - منصة المندوبين</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .register-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #2c3e50;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #7f8c8d;
+      font-size: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      color: #2c3e50;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fff;
+      color: #2c3e50;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .commission-section {
+      background: #f8f9ff;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 2px solid #e0e6ed;
+    }
+
+    .commission-section h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .commission-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .commission-input input {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .commission-input span {
+      color: #667eea;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .feature {
+      text-align: center;
+      padding: 15px;
+      background: #f8f9ff;
+      border-radius: 10px;
+      border: 1px solid #e0e6ed;
+    }
+
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .feature-text {
+      font-size: 12px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .register-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="header">
+      <h1>انضم لمنصة المندوبين</h1>
+      <p>ابحث عن أفضل مندوبي المبيعات لتسويق منتجاتك وخدماتك</p>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <div class="feature-text">تحليلات مفصلة</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-text">استهداف دقيق</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💰</div>
+        <div class="feature-text">عمولات مرنة</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚀</div>
+        <div class="feature-text">نمو سريع</div>
+      </div>
+    </div>
+
+    <form id="businessRegisterForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="companyName">اسم الشركة *</label>
+          <input type="text" id="companyName" name="companyName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="industry">المجال *</label>
+          <select id="industry" name="industry" required>
+            <option value="">اختر المجال</option>
+            <option value="technology">التكنولوجيا</option>
+            <option value="healthcare">الصحة</option>
+            <option value="education">التعليم</option>
+            <option value="finance">المالية</option>
+            <option value="retail">التجارة</option>
+            <option value="real-estate">العقارات</option>
+            <option value="food">الأغذية</option>
+            <option value="beauty">التجميل</option>
+            <option value="fashion">الأزياء</option>
+            <option value="other">أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contactName">اسم المسؤول *</label>
+          <input type="text" id="contactName" name="contactName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">البريد الإلكتروني *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">رقم الهاتف *</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="country">الدولة *</label>
+          <select id="country" name="country" required>
+            <option value="">اختر الدولة</option>
+            <option value="sa">السعودية</option>
+            <option value="ae">الإمارات</option>
+            <option value="qa">قطر</option>
+            <option value="kw">الكويت</option>
+            <option value="bh">البحرين</option>
+            <option value="om">عمان</option>
+            <option value="eg">مصر</option>
+            <option value="jo">الأردن</option>
+            <option value="lb">لبنان</option>
+            <option value="other">أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="website">موقع الشركة الإلكتروني</label>
+          <input type="url" id="website" name="website" placeholder="https://www.example.com">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="description">وصف الشركة والمنتجات *</label>
+          <textarea id="description" name="description" placeholder="اكتب وصفاً مختصراً عن شركتك والمنتجات/الخدمات التي تريد تسويقها" required></textarea>
+        </div>
+      </div>
+
+      <div class="commission-section">
+        <h3>إعدادات العمولة</h3>
+        <div class="commission-input">
+          <label for="commissionRate">نسبة العمولة للمندوبين:</label>
+          <input type="number" id="commissionRate" name="commissionRate" min="1" max="50" value="10" required>
+          <span>%</span>
+        </div>
+        <div class="commission-input">
+          <label for="targetSales">الهدف الشهري المطلوب:</label>
+          <input type="number" id="targetSales" name="targetSales" placeholder="مثال: 100000" required>
+          <span>ريال</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn">إنشاء حساب الشركة</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('businessRegisterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const businessData = {};
+      
+      for (let [key, value] of formData.entries()) {
+        businessData[key] = value;
+      }
+      
+      businessData.registrationDate = new Date().toISOString();
+      businessData.id = Date.now().toString();
+      businessData.status = 'pending';
+      
+      // Save to localStorage
+      let businesses = JSON.parse(localStorage.getItem('businesses') || '[]');
+      businesses.push(businessData);
+      localStorage.setItem('businesses', JSON.stringify(businesses));
+      
+      alert('تم تسجيل شركتك بنجاح! سيتم مراجعة الطلب والتواصل معك قريباً.');
+      window.location.href = 'business-dashboard.html';
+    });
+  </script>
+</body>
+</html>
