@@ -1,510 +1,417 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منصة المندوبين - HS Platform</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>شركة التسويق</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* خطوط أساسية */
+    /* قسم الخدمات */
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #1c1c2c;
+        color: #fff;
+      }
 
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #f59e0b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --dark: #0f172a;
-      --dark-light: #1e293b;
-      --gray: #64748b;
-      --light: #f8fafc;
-      --white: #ffffff;
-      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    }
+      a {
+        text-decoration: none;
+      }
 
-    body {
-      font-family: 'Tajawal', 'Inter', sans-serif;
-      line-height: 1.6;
-      color: var(--dark);
-      background: var(--white);
-    }
+      header {
+        background: linear-gradient(90deg, #bfa833, #7d3fbf);
+        padding: 20px 0;
+      }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+      header .container {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    /* Header */
-    header {
-      background: var(--white);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-    }
-
-    .logo {
-      font-size: 2rem;
+    header h1 {
+      font-family: 'Tajawal', sans-serif; /* خط عربي أنيق */
+      font-size: 34px;
       font-weight: 800;
-      background: var(--gradient);
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #ffd700, #ffffff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     }
 
-    .nav-menu {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-link {
-      text-decoration: none;
-      color: var(--gray);
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--primary);
-    }
-
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
+    header nav a {
+      font-family: 'Tajawal', sans-serif;
+      font-size: 16px;
       font-weight: 600;
-      text-decoration: none;
+      color: #1c1c2c;
+      background: #ffd700;
+      padding: 10px 20px;
+      margin-left: 10px;
+      border-radius: 8px;
       transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
       display: inline-block;
-      text-align: center;
     }
 
-    .btn-primary {
-      background: var(--gradient);
-      color: var(--white);
-    }
-
-    .btn-primary:hover {
+    header nav a:hover {
+      background: #fff;
+      color: #7d3fbf;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
     }
 
-    .btn-secondary {
-      background: var(--white);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
-
-    .btn-secondary:hover {
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    /* Hero Section */
     .hero {
-      background: var(--gradient);
-      color: var(--white);
-      padding: 5rem 0;
+      background: linear-gradient(135deg, #7d3fbf, #bfa833);
+      padding: 100px 20px;
+      text-align: center;
+      color: #fff;
       position: relative;
       overflow: hidden;
     }
 
     .hero::before {
-      content: '';
+      content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 700px;
+      margin: auto;
     }
 
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
+    .hero h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .hero p {
-      font-size: 1.25rem;
-      margin-bottom: 2.5rem;
-      opacity: 0.9;
+      font-size: 20px;
+      margin-bottom: 40px;
+      color: #f0f0f0;
     }
 
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* Features Section */
-    .features {
-      padding: 5rem 0;
-      background: var(--light);
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 1rem;
-    }
-
-    .section-title p {
-      font-size: 1.1rem;
-      color: var(--gray);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background: var(--white);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
-
-    .feature-icon {
-      width: 60px;
-      height: 60px;
-      background: var(--gradient);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      color: var(--white);
-      font-size: 1.5rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.25rem;
+    .hero .btn {
+      background: #ffd700;
+      color: #1c1c2c;
+      padding: 15px 40px;
+      font-size: 18px;
       font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--dark);
+      border-radius: 50px;
+      transition: all 0.3s ease;
     }
 
-    .feature-card p {
-      color: var(--gray);
-      line-height: 1.6;
+    .hero .btn:hover {
+      background: #fff;
+      color: #7d3fbf;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+      transform: translateY(-3px);
     }
 
-    /* How It Works */
-    .how-it-works {
-      padding: 5rem 0;
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #ffd700, #ffcc33);
+      color: #1c1c2c;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+       font-family: 'Tajawal', sans-serif; /* خط عربي أنيق */
     }
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+    .btn:hover {
+      background: linear-gradient(90deg, #ffcc33, #ffd700);
+      color: #7d3fbf;
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.6);
+      transform: translateY(-3px);
     }
 
-    .step {
+    
+      .services {
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .services h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #ffd700;
+        text-shadow: 1px 1px 5px #7d3fbf;
+      }
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+      }
+
+      .card {
+        background: linear-gradient(145deg, #2c2c3c, #3d3d5c);
+        padding: 30px;
+        border-radius: 20px;
+        width: 300px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 25px rgba(255, 215, 0, 0.4);
+      }
+
+      .card h3 {
+        color: #ffd700;
+        margin-bottom: 15px;
+      }
+
+      .card p {
+        color: #ddd;
+        font-size: 16px;
+      }
+
+      .our-clients {
+        background: #1c1c2c;
+        padding: 50px 20px;
+        text-align: center;
+      }
+
+      .our-clients h2 {
+        color: #ffd700;
+        margin-bottom: 30px;
+        font-size: 32px;
+        text-shadow: 1px 1px 3px #7d3fbf;
+      }
+
+      .client-slider {
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+        padding-bottom: 10px;
+      }
+
+      .client-slider::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .client-slider::-webkit-scrollbar-thumb {
+        background: #ffd700;
+        border-radius: 4px;
+      }
+
+      .client-logos {
+        display: inline-flex;
+        gap: 30px;
+      }
+
+      .client-logos img {
+        width: 120px;
+        height: auto;
+        border-radius: 10px;
+        filter: grayscale(80%);
+        transition: filter 0.3s, transform 0.3s;
+      }
+
+      .client-logos img:hover {
+        filter: grayscale(0%);
+        transform: scale(1.1);
+      }
+
+    .request-form {
+      background: linear-gradient(145deg, #2c2c3c, #3d3d5c);
+      padding: 50px 20px;
+      max-width: 500px;
+      margin: 50px auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       text-align: center;
+      color: #fff;
+    }
+
+    .request-form h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #ffd700;
+      text-shadow: 1px 1px 5px #7d3fbf;
+    }
+
+    .request-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .request-form input {
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      background: #fff;
+      color: #1c1c2c;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .request-form input:focus {
+      outline: none;
+      transform: scale(1.02);
+      box-shadow: 0 0 10px #ffd700;
+    }
+
+    .request-form button {
+      padding: 15px;
+      border-radius: 50px;
+      border: none;
+      background: #ffd700;
+      color: #1c1c2c;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .request-form button:hover {
+      background: #fff;
+      color: #7d3fbf;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+    }
+    
+    footer {
+      background: #1c1c2c;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
       position: relative;
     }
 
-    .step-number {
-      width: 50px;
-      height: 50px;
-      background: var(--gradient);
-      color: var(--white);
-      border-radius: 50%;
+    .footer-container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .footer-container p {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #ffd700;
+      text-shadow: 1px 1px 3px #7d3fbf;
+    }
+
+    .social-icons {
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 1.25rem;
-      margin: 0 auto 1.5rem;
+      gap: 15px;
     }
 
-    .step h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--dark);
+    .social-icons a img {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.3s, filter 0.3s;
     }
 
-    .step p {
-      color: var(--gray);
-    }
-
-    /* CTA Section */
-    .cta {
-      background: var(--dark);
-      color: var(--white);
-      padding: 5rem 0;
-      text-align: center;
-    }
-
-    .cta h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .cta p {
-      font-size: 1.1rem;
-      margin-bottom: 2.5rem;
-      opacity: 0.8;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--dark-light);
-      color: var(--white);
-      padding: 3rem 0 1rem;
-    }
-
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .footer-section h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .footer-section p,
-    .footer-section a {
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      line-height: 1.8;
-    }
-
-    .footer-section a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 2rem;
-      text-align: center;
-      color: rgba(255,255,255,0.5);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .nav-menu {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .section-title h2 {
-        font-size: 2rem;
-      }
+    .social-icons a img:hover {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 5px #ffd700);
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <div class="header-content">
-        <div class="logo">HS Platform</div>
-        <nav class="nav-menu">
-          <a href="#features" class="nav-link">المميزات</a>
-          <a href="#how-it-works" class="nav-link">كيف يعمل</a>
-          <a href="business-register.html" class="btn btn-secondary">للشركات</a>
-          <a href="register-agent.html" class="btn btn-primary">للمندوبين</a>
-        </nav>
-      </div>
+      <h1>شركة HS</h1>
+      <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="agents.html">سجّل كمندوب</a>
+      </nav>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1>منصة ربط الشركات بالمندوبين</h1>
-          <p>اربط منتجاتك وخدماتك بأفضل مندوبي المبيعات في المنطقة. نظام احترافي لإدارة المندوبين وتتبع الأرباح</p>
-          <div class="hero-buttons">
-            <a href="business-register.html" class="btn btn-primary">ابدأ كشركة</a>
-            <a href="register-agent.html" class="btn btn-secondary">انضم كمندوب</a>
-          </div>
+      <div class="hero-content">
+        <h2>أفضل خدمات التسويق الرقمي</h2>
+        <p>ارتقِ بأعمالك مع حملاتنا الاحترافية وإستراتيجياتنا الذكية.</p>
+        <a href="#serviceForm" class="btn">اطلب الخدمة الآن</a>
+      </div>
+    </section>
+
+    <section class="services">
+      <h2>خدماتنا</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>تسويق المنتجات</h3>
+          <p>نساعدك على الوصول لأكبر شريحة من العملاء وزيادة المبيعات.</p>
+        </div>
+        <div class="card">
+          <h3>إدارة الحملات الإعلانية</h3>
+          <p>إعلانات دقيقة وموجّهة تحقق أفضل النتائج لأعمالك.</p>
+        </div>
+        <div class="card">
+          <h3>تحليل السوق</h3>
+          <p>نقدّم لك تقارير وتحليلات تساعدك على اتخاذ القرار الصحيح.</p>
         </div>
       </div>
     </section>
 
-    <section class="features" id="features">
-      <div class="container">
-        <div class="section-title">
-          <h2>لماذا تختار منصتنا؟</h2>
-          <p>منصة شاملة تجمع بين الشركات ومندوبي المبيعات في نظام احترافي متكامل</p>
-        </div>
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <h3>تتبع الأداء بالوقت الفعلي</h3>
-            <p>لوحات معلومات تفاعلية لمتابعة المبيعات والأرباح والإحصائيات المفصلة لكل مندوب</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-users"></i>
-            </div>
-            <h3>شبكة مندوبين احترافية</h3>
-            <p>اختر من بين آلاف المندوبين المؤهلين والمتخصصين في مختلف المجالات</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-wallet"></i>
-            </div>
-            <h3>نظام عمولات مرن</h3>
-            <p>حدد نسب العمولة التي تناسب نشاطك التجاري مع إمكانية التعديل في أي وقت</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-shield-alt"></i>
-            </div>
-            <h3>أمان وموثوقية</h3>
-            <p>نظام أمان متقدم لحماية بياناتك مع ضمانات على جميع المعاملات</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h3>واجهة سهلة الاستخدام</h3>
-            <p>تطبيق ويب متجاوب يعمل على جميع الأجهزة مع واجهة بديهية وسهلة</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-headset"></i>
-            </div>
-            <h3>دعم فني 24/7</h3>
-            <p>فريق دعم متخصص متاح على مدار الساعة لمساعدتك في أي استفسار</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="our-clients">
+  <h2>عملاؤنا</h2>
+  <div class="client-slider">
+    <div class="client-logos">
+      <img src="client1.png" alt="عميل 1">
+      <img src="client2.png" alt="عميل 2">
+      <img src="client3.png" alt="عميل 3">
+      <img src="client4.png" alt="عميل 4">
+      <img src="client5.png" alt="عميل 5">
+      <img src="client6.png" alt="عميل 6">
+    </div>
+  </div>
+</section>
 
-    <section class="how-it-works" id="how-it-works">
-      <div class="container">
-        <div class="section-title">
-          <h2>كيف تعمل المنصة؟</h2>
-          <p>خطوات بسيطة للبدء في استخدام المنصة وتحقيق أفضل النتائج</p>
-        </div>
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>إنشاء الحساب</h3>
-            <p>سجل حسابك كشركة أو كمندوب مبيعات واملأ البيانات المطلوبة</p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>إعداد المنتجات والعمولات</h3>
-            <p>أضف منتجاتك وخدماتك وحدد نسب العمولة لكل منتج</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>ربط المندوبين</h3>
-            <p>اختر المندوبين المناسبين أو دع المندوبين يتقدمون للعمل معك</p>
-          </div>
-          <div class="step">
-            <div class="step-number">4</div>
-            <h3>تتبع النتائج</h3>
-            <p>راقب الأداء والمبيعات من خلال لوحة التحكم الشاملة</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="container">
-        <h2>ابدأ رحلتك اليوم</h2>
-        <p>انضم إلى آلاف الشركات والمندوبين الذين يحققون أرباحاً استثنائية من خلال منصتنا</p>
-        <div class="hero-buttons">
-          <a href="business-register.html" class="btn btn-primary">ابدأ كشركة</a>
-          <a href="register-agent.html" class="btn btn-secondary">انضم كمندوب</a>
-        </div>
-      </div>
+    <section class="request-form" id="serviceForm">
+      <h2>طلب خدمة</h2>
+      <form id="serviceFormElement">
+        <input type="text" id="name" placeholder="الاسم" required>
+        <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+        <input type="text" id="service" placeholder="الخدمة المطلوبة" required>
+        <button type="submit">إرسال الطلب</button>
+      </form>
     </section>
   </main>
 
   <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>HS Platform</h3>
-          <p>منصة احترافية تجمع بين الشركات ومندوبي المبيعات لتحقيق أفضل النتائج</p>
-        </div>
-        <div class="footer-section">
-          <h3>روابط سريعة</h3>
-          <p><a href="#features">المميزات</a></p>
-          <p><a href="#how-it-works">كيف يعمل</a></p>
-          <p><a href="business-register.html">للشركات</a></p>
-          <p><a href="register-agent.html">للمندوبين</a></p>
-        </div>
-        <div class="footer-section">
-          <h3>تواصل معنا</h3>
-          <p>البريد الإلكتروني: info@hsplatform.com</p>
-          <p>الهاتف: +966 50 123 4567</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 HS Platform. جميع الحقوق محفوظة.</p>
+    <div class="footer-container">
+      <p>© 2025 شركة التسويق. جميع الحقوق محفوظة.</p>
+      <div class="social-icons">
+        <a href="#" title="فيسبوك"><img src="facebook-icon.png" alt="Facebook"></a>
+        <a href="#" title="إنستغرام"><img src="instagram-icon.png" alt="Instagram"></a>
+        <a href="#" title="تويتر"><img src="twitter-icon.png" alt="Twitter"></a>
+        <a href="#" title="لينكد إن"><img src="linkedin-icon.png" alt="LinkedIn"></a>
       </div>
     </div>
   </footer>
+
+  <script type="module" src="script.js"></script>
+  <!-- ربط مكتبة EmailJS -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function(){
+        emailjs.init("YOUR_USER_ID"); // حطي User ID من لوحة EmailJS
+    })();
+  </script>
+
 </body>
 </html>
