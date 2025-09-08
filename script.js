@@ -1,6 +1,37 @@
 // Auto scroll effect
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Add scroll-triggered animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+        entry.target.style.opacity = '1';
+      }
+    });
+  }, observerOptions);
+
+  // Observe feature cards and steps
+  document.querySelectorAll('.feature-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+
+  // Add floating animation to logo
+  const logo = document.querySelector('.logo');
+  if (logo) {
+    setInterval(() => {
+      logo.style.animation = 'bounce 2s ease';
+      setTimeout(() => {
+        logo.style.animation = '';
+      }, 2000);
+    }, 10000);
+  }
   const slider = document.querySelector(".client-slider");
 
   // Check if slider exists before trying to use it
