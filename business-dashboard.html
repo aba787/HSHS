@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم الشركة - HS Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --dark: #0f172a;
+      --dark-light: #1e293b;
+      --gray: #64748b;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    }
+
+    body {
+      font-family: 'Tajawal', 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--white);
+      border-left: 1px solid #e2e8f0;
+      padding: 2rem 0;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    }
+
+    .sidebar-header {
+      padding: 0 2rem 2rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 2rem 0;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 2rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-menu a:hover,
+    .sidebar-menu a.active {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .sidebar-menu a i {
+      margin-left: 0.75rem;
+      width: 20px;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--gray);
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-title {
+      font-size: 0.875rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .stat-icon.primary { background: var(--primary); }
+    .stat-icon.success { background: var(--success); }
+    .stat-icon.warning { background: var(--warning); }
+    .stat-icon.danger { background: var(--danger); }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-change {
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .stat-change.positive { color: var(--success); }
+    .stat-change.negative { color: var(--danger); }
+
+    /* Content Sections */
+    .content-section {
+      background: var(--white);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+      padding: 1rem;
+      text-align: right;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    table th {
+      background: var(--light);
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    table tbody tr:hover {
+      background: var(--light);
+    }
+
+    /* Status badges */
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-approved {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Chart container */
+    .chart-container {
+      position: relative;
+      height: 400px;
+      margin-top: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
+        padding: 1rem;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>HS Platform</h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="#" class="active" data-section="overview"><i class="fas fa-chart-pie"></i> نظرة عامة</a></li>
+        <li><a href="#" data-section="agents"><i class="fas fa-users"></i> المندوبين</a></li>
+        <li><a href="#" data-section="products"><i class="fas fa-box"></i> المنتجات</a></li>
+        <li><a href="#" data-section="sales"><i class="fas fa-chart-line"></i> المبيعات</a></li>
+        <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> الإعدادات</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="dashboard-header">
+        <h1>مرحباً بك، <span id="companyName">شركتك</span></h1>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="addProductBtn">
+            <i class="fas fa-plus"></i> إضافة منتج
+          </button>
+          <a href="index.html" class="btn btn-secondary">
+            <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+          </a>
+        </div>
+      </div>
+
+      <!-- Overview Section -->
+      <div id="overview" class="content-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">إجمالي المندوبين</span>
+              <div class="stat-icon primary">
+                <i class="fas fa-users"></i>
+              </div>
+            </div>
+            <div class="stat-value" id="totalAgents">0</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+12% من الشهر الماضي</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">إجمالي المبيعات</span>
+              <div class="stat-icon success">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+            </div>
+            <div class="stat-value" id="totalSales">0 ر.س</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+25% من الشهر الماضي</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">العمولات المدفوعة</span>
+              <div class="stat-icon warning">
+                <i class="fas fa-credit-card"></i>
+              </div>
+            </div>
+            <div class="stat-value" id="totalCommissions">0 ر.س</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+18% من الشهر الماضي</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">متوسط التحويل</span>
+              <div class="stat-icon danger">
+                <i class="fas fa-percentage"></i>
+              </div>
+            </div>
+            <div class="stat-value" id="conversionRate">0%</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>+5% من الشهر الماضي</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="section-header">
+            <h3 class="section-title">تحليل المبيعات</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agents Section -->
+      <div id="agents" class="content-section" style="display: none;">
+        <div class="section-header">
+          <h3 class="section-title">إدارة المندوبين</h3>
+          <button class="btn btn-primary" id="inviteAgentBtn">
+            <i class="fas fa-user-plus"></i> دعوة مندوب
+          </button>
+        </div>
+        <div class="table-container">
+          <table id="agentsTable">
+            <thead>
+              <tr>
+                <th>الاسم</th>
+                <th>البريد الإلكتروني</th>
+                <th>الهاتف</th>
+                <th>المبيعات</th>
+                <th>العمولة</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="agentsTableBody">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Products Section -->
+      <div id="products" class="content-section" style="display: none;">
+        <div class="section-header">
+          <h3 class="section-title">إدارة المنتجات</h3>
+          <button class="btn btn-primary" id="addProductModalBtn">
+            <i class="fas fa-plus"></i> إضافة منتج جديد
+          </button>
+        </div>
+        <div class="table-container">
+          <table id="productsTable">
+            <thead>
+              <tr>
+                <th>اسم المنتج</th>
+                <th>السعر</th>
+                <th>نسبة العمولة</th>
+                <th>المبيعات</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sales Section -->
+      <div id="sales" class="content-section" style="display: none;">
+        <div class="section-header">
+          <h3 class="section-title">تقرير المبيعات</h3>
+          <div class="header-actions">
+            <button class="btn btn-secondary">
+              <i class="fas fa-download"></i> تصدير التقرير
+            </button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table id="salesTable">
+            <thead>
+              <tr>
+                <th>رقم الطلب</th>
+                <th>المنتج</th>
+                <th>المندوب</th>
+                <th>المبلغ</th>
+                <th>العمولة</th>
+                <th>التاريخ</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody id="salesTableBody">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div id="settings" class="content-section" style="display: none;">
+        <div class="section-header">
+          <h3 class="section-title">إعدادات الشركة</h3>
+        </div>
+        <form id="companySettingsForm">
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">اسم الشركة</label>
+            <input type="text" id="settingsCompanyName" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">النسبة الافتراضية للعمولة (%)</label>
+            <input type="number" id="defaultCommission" min="1" max="50" step="0.5" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">وصف الشركة</label>
+            <textarea id="companyDescription" rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; resize: vertical;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> حفظ التغييرات
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      authDomain: "your-project.firebaseapp.com",
+      projectId: "your-project-id",
+      storageBucket: "your-project.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "your-app-id"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Get business data from localStorage
+    const businessId = localStorage.getItem('businessId');
+    const businessData = JSON.parse(localStorage.getItem('businessData') || '{}');
+
+    // Update company name in header
+    document.getElementById('companyName').textContent = businessData.companyName || 'شركتك';
+
+    // Sidebar navigation
+    const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Update active state
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        
+        // Show corresponding section
+        const sectionId = link.dataset.section;
+        contentSections.forEach(section => {
+          section.style.display = section.id === sectionId ? 'block' : 'none';
+        });
+      });
+    });
+
+    // Sample data for demo
+    const sampleAgents = [
+      { id: 1, name: 'أحمد محمد', email: 'ahmed@example.com', phone: '+966501234567', sales: 25000, commission: 2500, status: 'approved' },
+      { id: 2, name: 'فاطمة علي', email: 'fatma@example.com', phone: '+966507654321', sales: 18000, commission: 1800, status: 'approved' },
+      { id: 3, name: 'محمد حسن', email: 'mohamed@example.com', phone: '+966509876543', sales: 0, commission: 0, status: 'pending' }
+    ];
+
+    const sampleProducts = [
+      { id: 1, name: 'منتج أ', price: 500, commission: 10, sales: 150, status: 'active' },
+      { id: 2, name: 'منتج ب', price: 300, commission: 15, sales: 89, status: 'active' },
+      { id: 3, name: 'منتج ج', price: 800, commission: 8, sales: 45, status: 'inactive' }
+    ];
+
+    const sampleSales = [
+      { id: 1001, product: 'منتج أ', agent: 'أحمد محمد', amount: 500, commission: 50, date: '2025-01-15', status: 'completed' },
+      { id: 1002, product: 'منتج ب', agent: 'فاطمة علي', amount: 300, commission: 45, date: '2025-01-14', status: 'completed' },
+      { id: 1003, product: 'منتج أ', agent: 'أحمد محمد', amount: 500, commission: 50, date: '2025-01-13', status: 'pending' }
+    ];
+
+    // Update statistics
+    function updateStats() {
+      const totalAgents = sampleAgents.filter(a => a.status === 'approved').length;
+      const totalSales = sampleSales.reduce((sum, sale) => sum + sale.amount, 0);
+      const totalCommissions = sampleSales.reduce((sum, sale) => sum + sale.commission, 0);
+      const conversionRate = 15.5; // Sample conversion rate
+
+      document.getElementById('totalAgents').textContent = totalAgents;
+      document.getElementById('totalSales').textContent = `${totalSales.toLocaleString()} ر.س`;
+      document.getElementById('totalCommissions').textContent = `${totalCommissions.toLocaleString()} ر.س`;
+      document.getElementById('conversionRate').textContent = `${conversionRate}%`;
+    }
+
+    // Populate agents table
+    function populateAgentsTable() {
+      const tbody = document.getElementById('agentsTableBody');
+      tbody.innerHTML = sampleAgents.map(agent => `
+        <tr>
+          <td>${agent.name}</td>
+          <td>${agent.email}</td>
+          <td>${agent.phone}</td>
+          <td>${agent.sales.toLocaleString()} ر.س</td>
+          <td>${agent.commission.toLocaleString()} ر.س</td>
+          <td><span class="status-badge status-${agent.status}">${agent.status === 'approved' ? 'مقبول' : 'قيد المراجعة'}</span></td>
+          <td>
+            <button class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.875rem;">
+              <i class="fas fa-eye"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Populate products table
+    function populateProductsTable() {
+      const tbody = document.getElementById('productsTableBody');
+      tbody.innerHTML = sampleProducts.map(product => `
+        <tr>
+          <td>${product.name}</td>
+          <td>${product.price} ر.س</td>
+          <td>${product.commission}%</td>
+          <td>${product.sales}</td>
+          <td><span class="status-badge status-${product.status === 'active' ? 'approved' : 'pending'}">${product.status === 'active' ? 'نشط' : 'غير نشط'}</span></td>
+          <td>
+            <button class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.875rem; margin-left: 0.5rem;">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.875rem;">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Populate sales table
+    function populateSalesTable() {
+      const tbody = document.getElementById('salesTableBody');
+      tbody.innerHTML = sampleSales.map(sale => `
+        <tr>
+          <td>#${sale.id}</td>
+          <td>${sale.product}</td>
+          <td>${sale.agent}</td>
+          <td>${sale.amount} ر.س</td>
+          <td>${sale.commission} ر.س</td>
+          <td>${sale.date}</td>
+          <td><span class="status-badge status-${sale.status === 'completed' ? 'approved' : 'pending'}">${sale.status === 'completed' ? 'مكتمل' : 'قيد المعالجة'}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    // Create sales chart
+    function createSalesChart() {
+      const ctx = document.getElementById('salesChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+          datasets: [{
+            label: 'المبيعات (ر.س)',
+            data: [12000, 19000, 15000, 25000, 22000, 30000],
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return value.toLocaleString() + ' ر.س';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Initialize dashboard
+    function initDashboard() {
+      updateStats();
+      populateAgentsTable();
+      populateProductsTable();
+      populateSalesTable();
+      createSalesChart();
+    }
+
+    // Load business data and initialize
+    if (businessId) {
+      // In a real app, you would fetch from Firestore here
+      initDashboard();
+    } else {
+      // Redirect to login if no business data
+      window.location.href = 'business-register.html';
+    }
+
+    // Settings form
+    document.getElementById('companySettingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const companyName = document.getElementById('settingsCompanyName').value;
+      const defaultCommission = document.getElementById('defaultCommission').value;
+      const description = document.getElementById('companyDescription').value;
+      
+      // In a real app, you would update Firestore here
+      alert('تم حفظ الإعدادات بنجاح!');
+    });
+
+    // Add product button
+    document.getElementById('addProductBtn').addEventListener('click', () => {
+      // Switch to products section
+      sidebarLinks.forEach(l => l.classList.remove('active'));
+      document.querySelector('[data-section="products"]').classList.add('active');
+      contentSections.forEach(section => {
+        section.style.display = section.id === 'products' ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
