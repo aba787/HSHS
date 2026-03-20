@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم المندوب - HS Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --whatsapp: #25d366;
+      --whatsapp-dark: #128c7e;
+      --dark: #0f172a;
+      --dark-light: #1e293b;
+      --card-bg: #1e293b;
+      --gray: #64748b;
+      --light: #f1f5f9;
+      --white: #ffffff;
+      --gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 100vh;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border-left: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      padding: 1.5rem 0;
+    }
+
+    .sidebar-logo {
+      padding: 0 1.5rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-logo h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sidebar-logo p {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.25rem;
+    }
+
+    .sidebar-agent {
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(99,102,241,0.1);
+      margin: 0 1rem 1.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(99,102,241,0.2);
+    }
+
+    .agent-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .agent-info h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .agent-info span {
+      font-size: 0.75rem;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .agent-info span::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--success);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 0 1rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      color: var(--gray);
+      cursor: pointer;
+      margin-bottom: 0.25rem;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: rgba(99,102,241,0.15);
+      color: #a5b4fc;
+    }
+
+    .nav-item.active {
+      border-right: 3px solid var(--primary);
+    }
+
+    .nav-item i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .whatsapp-sidebar-btn {
+      margin: 1rem;
+      padding: 0.875rem;
+      background: var(--whatsapp);
+      border: none;
+      border-radius: 0.75rem;
+      color: white;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+    }
+
+    .whatsapp-sidebar-btn:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-right: 260px;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .page-header p {
+      color: var(--gray);
+      margin-top: 0.25rem;
+    }
+
+    /* WhatsApp Banner */
+    .whatsapp-banner {
+      background: linear-gradient(135deg, #075e54 0%, #128c7e 50%, #25d366 100%);
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.2);
+      animation: fadeInDown 0.5s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .whatsapp-banner-text h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.4rem;
+    }
+
+    .whatsapp-banner-text p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+    }
+
+    .whatsapp-banner-icon {
+      font-size: 3rem;
+      opacity: 0.9;
+    }
+
+    .whatsapp-join-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      color: #075e54;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-join-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card.blue::before { background: var(--primary); }
+    .stat-card.gold::before { background: var(--secondary); }
+    .stat-card.green::before { background: var(--success); }
+    .stat-card.red::before { background: var(--danger); }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card.blue .stat-icon { background: rgba(99,102,241,0.15); color: #818cf8; }
+    .stat-card.gold .stat-icon { background: rgba(245,158,11,0.15); color: #fbbf24; }
+    .stat-card.green .stat-icon { background: rgba(16,185,129,0.15); color: #34d399; }
+    .stat-card.red .stat-icon { background: rgba(239,68,68,0.15); color: #f87171; }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* Content Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 1.5rem;
+    }
+
+    /* Panel */
+    .panel {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .panel-header h3 i {
+      color: var(--primary);
+    }
+
+    .panel-body {
+      padding: 1.5rem;
+    }
+
+    /* Add Sale Form */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
+      color: #e2e8f0;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(99,102,241,0.05);
+    }
+
+    .form-control::placeholder {
+      color: var(--gray);
+    }
+
+    .btn-add {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--gradient);
+      border: none;
+      border-radius: 0.5rem;
+      color: white;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .btn-add:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+    }
+
+    /* Sales Table */
+    .sales-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .sales-table th {
+      padding: 0.75rem 1rem;
+      text-align: right;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .sales-table td {
+      padding: 0.875rem 1rem;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .sales-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .sales-table tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-success {
+      background: rgba(16,185,129,0.15);
+      color: #34d399;
+    }
+
+    .badge-pending {
+      background: rgba(245,158,11,0.15);
+      color: #fbbf24;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+    }
+
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.4;
+    }
+
+    /* Info Card */
+    .info-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-card h3 i {
+      color: var(--primary);
+    }
+
+    .info-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.9rem;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-row span:first-child {
+      color: var(--gray);
+    }
+
+    .info-row span:last-child {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 220px;
+      }
+      .main-content {
+        margin-right: 220px;
+      }
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+      .main-content {
+        margin-right: 0;
+        padding: 1rem;
+      }
+      .sidebar-nav {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .whatsapp-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Fade in */
+    .fade-in {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h2>HS Platform</h2>
+      <p>منصة المندوبين المحترفين</p>
+    </div>
+
+    <div class="sidebar-agent">
+      <div class="agent-avatar" id="avatarInitial">م</div>
+      <div class="agent-info">
+        <h4 id="sidebarName">المندوب</h4>
+        <span>نشط</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item active">
+        <i class="fas fa-chart-pie"></i> لوحة التحكم
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-plus-circle"></i> إضافة بيع
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-history"></i> سجل المبيعات
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-user"></i> الملف الشخصي
+      </div>
+    </nav>
+
+    <a href="https://chat.whatsapp.com/JApQ6FWD84P8SyHAErpYUO" target="_blank" class="whatsapp-sidebar-btn">
+      <i class="fab fa-whatsapp"></i> انضم لقناة الواتساب
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content fade-in">
+    <div class="page-header">
+      <h1>أهلاً وسهلاً، <span id="agentNameHeader">المندوب</span> 👋</h1>
+      <p>إليك ملخص أداء حسابك</p>
+    </div>
+
+    <!-- WhatsApp Banner -->
+    <div class="whatsapp-banner">
+      <div class="whatsapp-banner-text">
+        <h3><i class="fab fa-whatsapp"></i> قناة الواتساب الخاصة بالمندوبين</h3>
+        <p>انضم الآن للحصول على أحدث العروض والفرص التسويقية وآخر الأخبار</p>
+      </div>
+      <span class="whatsapp-banner-icon">📱</span>
+      <a href="https://chat.whatsapp.com/JApQ6FWD84P8SyHAErpYUO" target="_blank" class="whatsapp-join-btn">
+        <i class="fab fa-whatsapp"></i> انضم الآن
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-value" id="clientsCount">0</div>
+        <div class="stat-label">إجمالي العملاء</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+        <div class="stat-value" id="ordersCount">0</div>
+        <div class="stat-label">عدد الطلبات</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+        <div class="stat-value" id="totalEarnings">0</div>
+        <div class="stat-label">إجمالي الأرباح (ر.س)</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-icon"><i class="fas fa-fire"></i></div>
+        <div class="stat-value" id="avgSale">0</div>
+        <div class="stat-label">متوسط قيمة البيع</div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- Add Sale Form -->
+      <div>
+        <div class="info-card">
+          <h3><i class="fas fa-user-circle"></i> بياناتك</h3>
+          <div class="info-rows" id="agentInfoRows">
+            <div class="info-row"><span>البريد الإلكتروني</span><span id="agentEmail">-</span></div>
+            <div class="info-row"><span>رقم الهاتف</span><span id="agentPhone">-</span></div>
+            <div class="info-row"><span>الدولة</span><span id="agentCountry">-</span></div>
+            <div class="info-row"><span>التخصص</span><span id="agentSpec">-</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3><i class="fas fa-plus-circle"></i> إضافة بيع جديد</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label>اسم العميل</label>
+              <input type="text" id="clientName" class="form-control" placeholder="ادخل اسم العميل">
+            </div>
+            <div class="form-group">
+              <label>قيمة البيع (ر.س)</label>
+              <input type="number" id="saleAmount" class="form-control" placeholder="0.00" min="0">
+            </div>
+            <div class="form-group">
+              <label>المنتج أو الخدمة</label>
+              <input type="text" id="saleProduct" class="form-control" placeholder="اسم المنتج أو الخدمة">
+            </div>
+            <button class="btn-add" id="addSaleBtn">
+              <i class="fas fa-plus"></i> إضافة البيع
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Table -->
+      <div class="panel">
+        <div class="panel-header">
+          <h3><i class="fas fa-list"></i> سجل المبيعات</h3>
+          <span style="font-size:0.8rem; color: var(--gray);" id="salesCount">0 مبيعات</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="sales-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>العميل</th>
+                <th>المنتج</th>
+                <th>المبلغ</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody id="salesTableBody">
+            </tbody>
+          </table>
+          <div class="empty-state" id="emptySales">
+            <i class="fas fa-inbox"></i>
+            <p>لا يوجد مبيعات بعد</p>
+            <p style="font-size:0.8rem; margin-top:0.25rem;">أضف أول بيع من النموذج على اليسار</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const agentData = JSON.parse(localStorage.getItem("agentData")) || {};
+    let salesData = JSON.parse(localStorage.getItem("salesData")) || [];
+
+    const countryNames = {
+      sa: 'السعودية', ae: 'الإمارات', qa: 'قطر', kw: 'الكويت',
+      bh: 'البحرين', om: 'عمان', eg: 'مصر', jo: 'الأردن',
+      lb: 'لبنان', iq: 'العراق', ye: 'اليمن', sy: 'سوريا', other: 'أخرى'
+    };
+
+    const specNames = {
+      retail: 'تجارة التجزئة', technology: 'التكنولوجيا', healthcare: 'الرعاية الصحية',
+      education: 'التعليم', real_estate: 'العقارات', food: 'الأغذية',
+      fashion: 'الأزياء', automotive: 'السيارات', finance: 'الخدمات المالية', other: 'أخرى'
+    };
+
+    function loadAgentInfo() {
+      const name = agentData.fullName || agentData.fullname || agentData.firstName || 'المندوب';
+      document.getElementById('agentNameHeader').textContent = name;
+      document.getElementById('sidebarName').textContent = name;
+      
+      const initial = name.charAt(0);
+      document.getElementById('avatarInitial').textContent = initial;
+
+      document.getElementById('agentEmail').textContent = agentData.email || '-';
+      document.getElementById('agentPhone').textContent = agentData.phone || '-';
+      document.getElementById('agentCountry').textContent = countryNames[agentData.country] || agentData.country || '-';
+      document.getElementById('agentSpec').textContent = specNames[agentData.specialization] || agentData.specialization || '-';
+    }
+
+    function updateStats() {
+      const uniqueClients = [...new Set(salesData.map(s => s.client))];
+      const total = salesData.reduce((acc, s) => acc + Number(s.amount || 0), 0);
+      const avg = salesData.length > 0 ? Math.round(total / salesData.length) : 0;
+
+      document.getElementById('clientsCount').textContent = uniqueClients.length;
+      document.getElementById('ordersCount').textContent = salesData.length;
+      document.getElementById('totalEarnings').textContent = total.toLocaleString('ar-SA');
+      document.getElementById('avgSale').textContent = avg.toLocaleString('ar-SA');
+      document.getElementById('salesCount').textContent = salesData.length + ' مبيعات';
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('salesTableBody');
+      const empty = document.getElementById('emptySales');
+
+      if (salesData.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      tbody.innerHTML = salesData.map((sale, i) => `
+        <tr>
+          <td style="color:var(--gray)">${salesData.length - i}</td>
+          <td><strong>${sale.client}</strong></td>
+          <td style="color:var(--gray)">${sale.product || '-'}</td>
+          <td><strong style="color:#34d399">${Number(sale.amount).toLocaleString('ar-SA')} ر.س</strong></td>
+          <td><span class="badge badge-success">مكتمل</span></td>
+        </tr>
+      `).reverse().join('');
+    }
+
+    document.getElementById('addSaleBtn').addEventListener('click', () => {
+      const client = document.getElementById('clientName').value.trim();
+      const amount = document.getElementById('saleAmount').value;
+      const product = document.getElementById('saleProduct').value.trim();
+
+      if (!client || !amount) {
+        alert('الرجاء إدخال اسم العميل ومبلغ البيع');
+        return;
+      }
+
+      salesData.push({ client, amount: Number(amount), product, date: new Date().toLocaleDateString('ar-SA') });
+      localStorage.setItem('salesData', JSON.stringify(salesData));
+
+      document.getElementById('clientName').value = '';
+      document.getElementById('saleAmount').value = '';
+      document.getElementById('saleProduct').value = '';
+
+      updateStats();
+      renderTable();
+    });
+
+    loadAgentInfo();
+    updateStats();
+    renderTable();
+  </script>
+</body>
+</html>
